@@ -2,7 +2,10 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pancake="clr-namespace:PancakeView;assembly=PancakeView"
+    xmlns:skeleton="clr-namespace:Maui.Skeleton;assembly=Maui.Skeleton">
+    
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -422,5 +425,65 @@
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
+    
+    <!-- Pokémon Styles  -->
+    <Style x:Key="LabelTitle" TargetType="Label">
+        <Setter Property="FontFamily" Value="FontBold" />
+        <Setter Property="FontSize" Value="100" />
+    </Style>
+    <Style x:Key="LabelAplicationTitle" TargetType="Label">
+        <Setter Property="FontFamily" Value="FontBold" />
+        <Setter Property="FontSize" Value="32" />
+    </Style>
+    <Style x:Key="LabelPokemonName" TargetType="Label">
+        <Setter Property="FontFamily" Value="FontBold" />
+        <Setter Property="FontSize" Value="26" />
+    </Style>
+    <Style x:Key="LabelFilterTitle" TargetType="Label">
+        <Setter Property="FontFamily" Value="FontBold" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+    <Style x:Key="LabelDescription" TargetType="Label">
+        <Setter Property="FontFamily" Value="FontRegular" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+    <Style x:Key="LabelPokemonNumber" TargetType="Label">
+        <Setter Property="FontFamily" Value="FontBold" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+    <Style x:Key="LabelPokemonType" TargetType="Label">
+        <Setter Property="FontFamily" Value="FontMedium" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
 
+    <Style
+        x:Key="LabelRangeSlider"
+        BasedOn="{StaticResource LabelPokemonType}"
+        TargetType="Label"
+        >
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="TextColor" Value="{StaticResource ColorTextGray}" />
+    </Style>
+
+    <Style x:Key="ButtonPrimary" TargetType="Button">
+        <Setter Property="FontFamily" Value="FontRegular" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="{StaticResource ColorTextWhite}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource ColorTypePsychic}" />
+    </Style>
+    <Style x:Key="ButtonSecondary" TargetType="Button">
+        <Setter Property="FontFamily" Value="FontRegular" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="{StaticResource ColorTextGray}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource ColorBackgroundDefaultInput}" />
+    </Style>
+
+    <Style x:Key="CardSkeleton" TargetType="{x:Type pancake:PancakeView}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="skeleton:Skeleton.Animation" Value="{skeleton:DefaultAnimation Source=Fade, Interval='600', Parameter='0.3'}" />
+        <Setter Property="skeleton:Skeleton.BackgroundColor" Value="{StaticResource ColorGray}" />
+        <Setter Property="CornerRadius" Value="3" />
+    </Style>
 </ResourceDictionary>

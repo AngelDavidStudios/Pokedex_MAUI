@@ -24,7 +24,7 @@
         <ApplicationTitle>Pokedex_MAUI</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.companyname.pokedex_maui</ApplicationId>
+        <ApplicationId>com.angeldavidstudios.pokedex_maui</ApplicationId>
 
         <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -58,16 +58,13 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+        <PackageReference Include="HorusStudio.Maui.Skeleton" Version="2.0.0" />
         <PackageReference Include="LiteDB" Version="5.0.19" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="MVVM\ViewModels\" />
-      <Folder Include="MVVM\Views\" />
+        <PackageReference Include="PancakeView.Maui" Version="8.0.0" />
     </ItemGroup>
 
 </Project>
