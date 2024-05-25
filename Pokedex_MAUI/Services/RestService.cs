@@ -1,32 +1,39 @@
-using LiteDB;
+using System.Text.Json;
+using Pokedex_MAUI.Helpers;
+using Pokedex_MAUI.Interfaces;
+
 namespace Pokedex_MAUI.Services;
 
-public class RestService<T>
+public class RestService: IRestService
 {
-    protected LiteCollection<T> _collection;
-    
+    private readonly HttpClient _httpClient;
+
     public RestService()
     {
-        _collection = (LiteCollection<T>)App.Database.GetCollection<T>();
+        _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
     }
-
-    public IEnumerable<T> FindAll()
+    
+    public async Task<T> GetResourceAsync<T>(string url)
     {
-        return _collection.FindAll();
+        var response = await _httpClient.GetAsync(url);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<T>(content);
+        }
+
+        return default;
     }
-
-    public T FindById(int id)
+    
+    public async Task<T> GetResourceByNameAsync<T>(string apiEndpoint, string name)
     {
-        return _collection.FindById(id);
-    }
+        string sanitizedName = name
+            .Replace(" ", "-")
+            .Replace("'", "")
+            .Replace(".", "");
 
-    public bool UpsertItem(T item)
-    {
-        return _collection.Upsert(item);
-    }
-
-    public bool DeleteAll()
-    {
-        return _collection.DeleteAll() > 0;
+        var url = $"{Constants.BASE_URL}/{apiEndpoint}/{sanitizedName}";
+        return await GetResourceAsync<T>(url);
     }
 }
