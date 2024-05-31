@@ -4,11 +4,14 @@ using Pokedex_MAUI.Helpers;
 using Pokedex_MAUI.Interfaces;
 using Pokedex_MAUI.MVVM.Models;
 using Pokedex_MAUI.Services;
+using PropertyChanged;
 
 namespace Pokedex_MAUI.MVVM.ViewModels;
 
-public class VMHome: VMBase, IInitializeAsync
+[AddINotifyPropertyChangedInterface]
+public class VMHome
 {
+    private INavigation _Navigation;
     private readonly IRestService _service;
     private readonly LiteDbService<PokemonModel> _dbServicePokemons;
     private readonly LiteDbService<FiltersModel> _dbServiceFilters;
@@ -31,11 +34,10 @@ public class VMHome: VMBase, IInitializeAsync
         get => Offset + Constants.PAGE_LIMIT;
     }
     public int ItemTreshold;
-
-    public Task Initialization { get; }
     
-    public VMHome(INavigation navigation, IRestService restService) : base(navigation)
+    public VMHome(INavigation navigation, IRestService restService)
     {
+        _Navigation = navigation;
         ItemTreshold = 1;
         _service = restService;
         _dbServicePokemons = new LiteDbService<PokemonModel>();
@@ -46,38 +48,38 @@ public class VMHome: VMBase, IInitializeAsync
         Pokemons = new ObservableCollection<PokemonModel>();
         PokemonsHelp = new ObservableCollection<PokemonModel>();
         DbPokemons = new List<PokemonModel>();
-        Initialization = InitializeAsync();
+        Task.Run(() => InitializeAsync());
     }
     
     private async Task InitializeAsync()
     {
-        var mockPokemonList = PokemonHelper.GetMockPokemonList(Offset,Amount);
-        foreach (var pokemon in mockPokemonList)
+        try
         {
-            Pokemons.Add(pokemon);
+            var mockPokemonList = PokemonHelper.GetMockPokemonList(Offset,Amount);
+            foreach (var pokemon in mockPokemonList)
+            {
+                Pokemons.Add(pokemon);
+            }
+            await GetResourceListAsync(string.Format(Constants.BASE_URL_RESOURCE_LIST, 0, Constants.POKEMON_LIMIT));
+            await LoadPokemonsAsync();
         }
-        await GetResourceListAsync(string.Format(Constants.BASE_URL_RESOURCE_LIST, 0, Constants.POKEMON_LIMIT));
-        await LoadPokemonsAsync();
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in InitializeAsync: {ex.Message}");
+        }
     }
 
     private async Task LoadPokemonsAsync()
     {
-        if (IsBusy)
-            return;
 
         try
         {
-            IsBusy = true;
-            if (!InternetConnectivity())
-            {
-                return;
-            }
             
             DbPokemons = _dbServicePokemons.FindAll();
 
             if (DbPokemons.Any())
             {
-                // SortPokemonDbList();
+                SortPokemonDbList();
             }
             
             if(!DbPokemons.Any() || DbPokemons.Count() < Constants.POKEMON_LIMIT)
@@ -96,19 +98,12 @@ public class VMHome: VMBase, IInitializeAsync
         {
             Debug.WriteLine("Error", e.Message);
         }
-        finally
-        {
-            IsBusy = false;
-        }
     }
 
     private async Task GetResourceListAsync(string url)
     {
         try
         {
-            if (!InternetConnectivity())
-                return;
-
             var dbResourceList = _dbServiceResourceList.FindAll();
             if (!dbResourceList.Any())
             {
@@ -123,7 +118,7 @@ public class VMHome: VMBase, IInitializeAsync
             else
                 ResourceList = dbResourceList.FirstOrDefault();
 
-            // SortResourceList();
+            SortResourceList();
         }
         catch (Exception ex)
         {
@@ -165,6 +160,62 @@ public class VMHome: VMBase, IInitializeAsync
         }
 
         return new List<PokemonModel>();
+    }
+
+    private void SortPokemonDbList()
+    {
+        if (!Filters.Orders.Any(a => a.Selected == true))
+            return;
+
+        var sort = Filters.Orders.Where(w => w.Selected == true).FirstOrDefault().Sort;
+
+        switch (sort)
+        {
+            case Enums.SortEnum.Ascending:
+                DbPokemons = DbPokemons.OrderBy(o => o.Id);
+                break;
+            case Enums.SortEnum.Descending:
+                DbPokemons = DbPokemons.OrderByDescending(o => o.Id);
+                break;
+            case Enums.SortEnum.AlphabeticalAscending:
+                DbPokemons = DbPokemons.OrderBy(o => o.Name);
+                break;
+            case Enums.SortEnum.AlphabeticalDescending:
+                DbPokemons = DbPokemons.OrderByDescending(o => o.Name);
+                break;
+            default:
+                DbPokemons = DbPokemons.OrderBy(o => o.Id);
+                break;
+        }
+    }
+
+    private void SortResourceList()
+    {
+        if (!Filters.Orders.Any(a => a.Selected == true))
+            return;
+
+        var sort = Filters.Orders.Where(w => w.Selected == true).FirstOrDefault().Sort;
+
+        switch (sort)
+        {
+            case Enums.SortEnum.Ascending:
+                ResourceList.Results = ResourceList.Results.OrderBy(o => o.Id);
+                break;
+            case Enums.SortEnum.Descending:
+                ResourceList.Results = ResourceList.Results.OrderByDescending(o => o.Id);
+                break;
+            case Enums.SortEnum.AlphabeticalAscending:
+                ResourceList.Results = ResourceList.Results.OrderBy(o => o.Name);
+                break;
+            case Enums.SortEnum.AlphabeticalDescending:
+                ResourceList.Results = ResourceList.Results.OrderByDescending(o => o.Name);
+                break;
+            default:
+                ResourceList.Results = ResourceList.Results.OrderBy(o => o.Id);
+                break;
+        }
+
+        LiteDbHelper.UpdateResourceListDataBase(_dbServiceResourceList, ResourceList);
     }
 
 }

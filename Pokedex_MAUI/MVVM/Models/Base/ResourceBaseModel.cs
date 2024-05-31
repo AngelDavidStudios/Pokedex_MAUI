@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using PropertyChanged;
 
 namespace Pokedex_MAUI.MVVM.Models.Base;
 
