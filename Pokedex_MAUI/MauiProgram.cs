@@ -1,10 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using Pokedex_MAUI.Interfaces;
-using Pokedex_MAUI.MVVM.Models;
-using Pokedex_MAUI.MVVM.ViewModels;
-using Pokedex_MAUI.MVVM.Views;
-using Pokedex_MAUI.Services;
+using Microsoft.Maui.Controls.Compatibility.Hosting;
 using The49.Maui.BottomSheet;
 
 namespace Pokedex_MAUI;
@@ -18,6 +14,15 @@ public static class MauiProgram
             .UseBottomSheet()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseMauiCompatibility()
+            .ConfigureMauiHandlers(handlers =>
+            {
+
+            })
+            .ConfigureEffects(effects =>
+            {
+
+            })
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
