@@ -72,4 +72,8 @@
         <PackageReference Include="Xamarin.CommunityToolkit.Markup.MauiCompat" Version="1.3.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="MVVM\Views\ContentViews\" />
+    </ItemGroup>
+
 </Project>
