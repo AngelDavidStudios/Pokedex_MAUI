@@ -1,5 +1,10 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Pokedex_MAUI.Interfaces;
+using Pokedex_MAUI.MVVM.Models;
+using Pokedex_MAUI.MVVM.ViewModels;
+using Pokedex_MAUI.MVVM.Views;
+using Pokedex_MAUI.Services;
 
 namespace Pokedex_MAUI;
 

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pokedex_MAUI.MVVM.Views.ContentViews.TabStatsContentView"
+             xmlns:converters="clr-namespace:Pokedex_MAUI.Converters"
+             xmlns:pancake="clr-namespace:PancakeView;assembly=PancakeView"
+             xmlns:skeleton="clr-namespace:Maui.Skeleton;assembly=Maui.Skeleton"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Name="statsView">
+
+    <ContentView.Resources>
+        <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
+        <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
+
+        <Style
+            x:Key="cardSkeletonStats"
+            BasedOn="{StaticResource CardSkeleton}"
+            TargetType="{x:Type pancake:PancakeView}">
+            <Setter Property="skeleton:Skeleton.IsBusy" Value="{Binding PokemonSpecies.IsBusy}" />
+        </Style>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <StackLayout>
+            <Grid Padding="40,30,40,40" RowSpacing="25">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="250" />
+                </Grid.RowDefinitions>
+
+                <!--  Sección de estadísticas Base -->
+                <pancake:PancakeView
+                    HorizontalOptions="Start"
+                    Style="{StaticResource cardSkeletonStats}"
+                    WidthRequest="120">
+                    <Label
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Base Stats"
+                        TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}" />
+                </pancake:PancakeView>
+
+                <StackLayout Grid.Row="1" BindableLayout.ItemsSource="{Binding Pokemon.Stats}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnSpacing="10" RowSpacing="15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.4*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="3.9*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--  Column 0  -->
+                                <pancake:PancakeView
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="FillAndExpand"
+                                    Style="{StaticResource CardSkeleton}">
+                                    <Label
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource LabelPokemonType}"
+                                        Text="{Binding Stat.StatDescription}"
+                                        TextColor="{StaticResource ColorTextBlack}"
+                                        VerticalOptions="Center" />
+                                </pancake:PancakeView>
+
+                                <!--  Column 1  -->
+                                <pancake:PancakeView
+                                    Grid.Column="1"
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="FillAndExpand"
+                                    Style="{StaticResource CardSkeleton}">
+                                    <Label
+                                        HorizontalOptions="End"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="{Binding BaseStat}"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </pancake:PancakeView>
+
+                                <!--  Column 2  -->
+                                <pancake:PancakeView
+                                    Grid.Column="2"
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="FillAndExpand"
+                                    Style="{StaticResource CardSkeleton}">
+                                    <ProgressBar
+                                        Progress="{Binding PercentageStat}"
+                                        ProgressColor="{Binding Source={x:Reference statsView}, Path=BindingContext.Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}"
+                                        VerticalOptions="Center" />
+                                </pancake:PancakeView>
+
+                                <!--  Column 3  -->
+                                <pancake:PancakeView
+                                    Grid.Column="3"
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="FillAndExpand"
+                                    Style="{StaticResource CardSkeleton}">
+                                    <Label
+                                        HorizontalOptions="End"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="{Binding MinStat}"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center" />
+                                </pancake:PancakeView>
+
+                                <!--  Column 4  -->
+                                <pancake:PancakeView
+                                    Grid.Column="4"
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="FillAndExpand"
+                                    Style="{StaticResource CardSkeleton}">
+                                    <Label
+                                        HorizontalOptions="End"
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="{Binding MaxStat}"
+                                        TextColor="{StaticResource ColorTextGray}"
+                                        VerticalOptions="Center" />
+                                </pancake:PancakeView>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
+                <Grid
+                    Grid.Row="2"
+                    Margin="0,-20,0,0"
+                    ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.4*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3.9*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <pancake:PancakeView HorizontalOptions="FillAndExpand" Style="{StaticResource cardSkeletonStats}">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Total"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center" />
+                    </pancake:PancakeView>
+
+                    <pancake:PancakeView
+                        Grid.Column="1"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource cardSkeletonStats}">
+                        <Label
+                            HorizontalTextAlignment="End"
+                            Style="{StaticResource LabelFilterTitle}"
+                            Text="{Binding Pokemon.TotalStat}"
+                            TextColor="{StaticResource ColorTextGray}"
+                            VerticalOptions="Center" />
+                    </pancake:PancakeView>
+
+                    <pancake:PancakeView
+                        Grid.Column="3"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource cardSkeletonStats}">
+                        <Label
+                            HorizontalTextAlignment="End"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Min"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center" />
+                    </pancake:PancakeView>
+
+                    <pancake:PancakeView
+                        Grid.Column="4"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource cardSkeletonStats}">
+                        <Label
+                            HorizontalTextAlignment="End"
+                            Style="{StaticResource LabelPokemonType}"
+                            Text="Max"
+                            TextColor="{StaticResource ColorTextBlack}"
+                            VerticalOptions="Center" />
+                    </pancake:PancakeView>
+                </Grid>
+
+                <pancake:PancakeView
+                    Grid.Row="3"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource cardSkeletonStats}">
+                    <Label
+                        Style="{StaticResource LabelPokemonType}"
+                        Text="The ranges shown on the right are for a level 100 Pokémon. Maximum values are based on a beneficial nature, 252 EVs, 31 IVs; minimum values are based on a hindering nature, 0 EVs, 0 IVs."
+                        TextColor="{StaticResource ColorTextGray}" />
+                </pancake:PancakeView>
+
+                <!--  Type Defenses Section  -->
+                <pancake:PancakeView
+                    Grid.Row="4"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource cardSkeletonStats}">
+                    <Label
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Type Defenses"
+                        TextColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorType}}" />
+                </pancake:PancakeView>
+
+                <pancake:PancakeView
+                    Grid.Row="5"
+                    Margin="0,-15,0,0"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource cardSkeletonStats}">
+                    <Label
+                        Style="{StaticResource LabelDescription}"
+                        Text="{Binding Pokemon.Name, StringFormat='The effectiveness of each type on {0}.'}"
+                        TextColor="{StaticResource ColorTextGray}" />
+                </pancake:PancakeView>
+
+                <CollectionView
+                    Grid.Row="6"
+                    HorizontalOptions="Center"
+                    ItemsSource="{Binding Pokemon.TypeDefenses}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="15"
+                            Orientation="Horizontal"
+                            Span="3"
+                            VerticalItemSpacing="0" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowSpacing="5" VerticalOptions="Start">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <pancake:PancakeView skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                                     Style="{StaticResource CardSkeleton}">
+                                    <pancake:PancakeView
+                                        Padding="5"
+                                        BackgroundColor="{Binding Type, Converter={StaticResource converterTypeToColorType}}"
+                                        CornerRadius="4"
+                                        HeightRequest="30"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Start"
+                                        WidthRequest="30">
+                                        <Image
+                                            toolkit:IconTintColorBehavior.TintColor="White"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="{Binding Type, Converter={StaticResource converterTypeToImageType}}"
+                                            VerticalOptions="Center" />
+                                    </pancake:PancakeView>
+                                </pancake:PancakeView>
+                                <Label
+                                    Grid.Row="1"
+                                    skeleton:Skeleton.Hide="True"
+                                    skeleton:Skeleton.IsBusy="{Binding IsBusy}"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource LabelDescription}"
+                                    Text="{Binding Multiplier}"
+                                    TextColor="{StaticResource ColorTextGray}"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+
+</ContentView>

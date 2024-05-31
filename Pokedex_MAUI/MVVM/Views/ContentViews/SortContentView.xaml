@@ -7,14 +7,14 @@
              xmlns:system="clr-namespace:System;assembly=netstandard"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Name="sortFilter">
-    
+
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:ConverterSortToDescriptionSort x:Key="converterSortToDescriptionSort" />
         </ResourceDictionary>
     </ContentView.Resources>
-    
-        <ContentView.Content>
+
+    <ContentView.Content>
         <Grid Padding="0,20,0,40" RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -29,12 +29,12 @@
                     <FormattedString>
                         <Span
                             Style="{StaticResource LabelPokemonName}"
-                            Text="Sort"
+                            Text="Clasificación"
                             TextColor="{StaticResource ColorTextBlack}" />
                         <Span Text="{x:Static system:Environment.NewLine}" />
                         <Span
                             Style="{StaticResource LabelDescription}"
-                            Text="Sort Pokémons alphabetically or by National Pokédex number!"
+                            Text="¡Ordena los Pokémon alfabéticamente o por número de la Pokédex nacional!"
                             TextColor="{StaticResource ColorTextGray}" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -58,30 +58,31 @@
                                 Style="{StaticResource ButtonSecondary}"
                                 Text="{Binding Sort, Converter={StaticResource converterSortToDescriptionSort}}"
                                 VerticalOptions="Center">
-                                <Button
-                                    Margin="40,0"
-                                    Command="{Binding Source={x:Reference sortFilter}, Path=BindingContext.SelectSortCommand}"
-                                    CommandParameter="{Binding .}"
-                                    CornerRadius="10"
-                                    HeightRequest="60"
-                                    HorizontalOptions="FillAndExpand"
-                                    Style="{StaticResource ButtonSecondary}"
-                                    Text="{Binding Sort, Converter={StaticResource converterSortToDescriptionSort}}"
-                                    VerticalOptions="Center">
-                                    <Button.Shadow>
-                                        <Shadow
-                                            Offset="0,10"
-                                            Radius="10" />
-                                    </Button.Shadow>
-                                    <Button.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding Selected}"
-                                            TargetType="Button"
-                                            Value="True">
-                                            <Setter Property="Style" Value="{StaticResource ButtonPrimary}" />
-                                        </DataTrigger>
-                                    </Button.Triggers>
-                                </Button>
+                            </Button>
+                            <Button
+                                Margin="40,0"
+                                Command="{Binding Source={x:Reference sortFilter}, Path=BindingContext.SelectSortCommand}"
+                                CommandParameter="{Binding .}"
+                                CornerRadius="10"
+                                HeightRequest="60"
+                                HorizontalOptions="FillAndExpand"
+                                Style="{StaticResource ButtonSecondary}"
+                                Text="{Binding Sort, Converter={StaticResource converterSortToDescriptionSort}}"
+                                VerticalOptions="Center">
+                                <Button.Shadow>
+                                    <Shadow
+                                        Brush="#80000000"
+                                        Offset="0,10"
+                                        Radius="10" />
+                                </Button.Shadow>
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Selected}"
+                                        TargetType="Button"
+                                        Value="True">
+                                        <Setter Property="Style" Value="{StaticResource ButtonPrimary}" />
+                                    </DataTrigger>
+                                </Button.Triggers>
                             </Button>
                         </Grid>
                     </DataTemplate>
@@ -89,5 +90,5 @@
             </StackLayout>
         </Grid>
     </ContentView.Content>
-    
+
 </ContentView>

@@ -7,7 +7,7 @@ namespace Pokedex_MAUI.Helpers;
 
 public static class PokemonHelper
 {
-    public static IEnumerable<PokemonModel> GetMockPokemonList(int offset, int amount)
+    public static IEnumerable<PokemonModel>  GetMockPokemonList(int offset, int amount)
     {
         List<PokemonModel> pokemonMockList = new List<PokemonModel>();
 
@@ -17,7 +17,7 @@ public static class PokemonHelper
             {
                 Name = "XXXXXXXXXX",
                 Id = i,
-                Types = new ObservableRangeCollection<PokemonTypeModel>(GetMockPokemonTypes()),
+                Types = new ObservableCollection<PokemonTypeModel>(GetMockPokemonTypes()),
                 IsBusy = true
             });
         }
@@ -32,7 +32,7 @@ public static class PokemonHelper
         {
             Name = "XXXXXXXXXX",
             Id = 1,
-            Types = new ObservableRangeCollection<PokemonTypeModel>(GetMockPokemonTypes()),
+            Types = new ObservableCollection<PokemonTypeModel>(GetMockPokemonTypes()),
             IsBusy = true
         };
     }
@@ -130,12 +130,12 @@ public static class PokemonHelper
     {
         return new FiltersModel
         {
-            Types = new ObservableRangeCollection<TypeFilterModel>(GetFilterTypes()),
-            Weaknesses = new ObservableRangeCollection<WeaknessFilterModel>(GetFilterWeaknesses()),
-            Heights = new ObservableRangeCollection<HeightFilterModel>(GetFilterHeights()),
-            Weights = new ObservableRangeCollection<WeightFilterModel>(GetFilterWeights()),
-            Orders = new ObservableRangeCollection<SortFilterModel>(GetFilterSorts()),
-            Generations = new ObservableRangeCollection<GenerationFilterModel>(GetFilterGenerations()),
+            Types = new ObservableCollection<TypeFilterModel>(GetFilterTypes()),
+            Weaknesses = new ObservableCollection<WeaknessFilterModel>(GetFilterWeaknesses()),
+            Heights = new ObservableCollection<HeightFilterModel>(GetFilterHeights()),
+            Weights = new ObservableCollection<WeightFilterModel>(GetFilterWeights()),
+            Orders = new ObservableCollection<SortFilterModel>(GetFilterSorts()),
+            Generations = new ObservableCollection<GenerationFilterModel>(GetFilterGenerations()),
             NumberRangeMin = 1,
             NumberRangeMax = 898
         };

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Pokedex_MAUI.MVVM.Views.ContentViews;
 
-public partial class FiltersContentView : ContentView
+public partial class TabEvolutionContentView : ContentView
 {
-    public FiltersContentView()
+    public TabEvolutionContentView()
     {
         InitializeComponent();
     }

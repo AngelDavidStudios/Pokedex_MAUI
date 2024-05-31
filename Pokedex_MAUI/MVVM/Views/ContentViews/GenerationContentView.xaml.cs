@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Pokedex_MAUI.MVVM.Views.ContentViews;
 
-[XamlCompilation(XamlCompilationOptions.Compile)]
 public partial class GenerationContentView : ContentView
 {
     public GenerationContentView()

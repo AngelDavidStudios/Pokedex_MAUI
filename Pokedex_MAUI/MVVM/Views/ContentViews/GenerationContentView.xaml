@@ -8,6 +8,7 @@
              xmlns:system="clr-namespace:System;assembly=netstandard"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Name="generationFilter">
+    
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:ConverterGenerationToDescriptionGeneration x:Key="converterGenerationToDescriptionGeneration" />
@@ -30,12 +31,12 @@
                     <FormattedString>
                         <Span
                             Style="{StaticResource LabelPokemonName}"
-                            Text="Generations"
+                            Text="Generaciones"
                             TextColor="{StaticResource ColorTextBlack}" />
                         <Span Text="{x:Static system:Environment.NewLine}" />
                         <Span
                             Style="{StaticResource LabelDescription}"
-                            Text="Use search for generations to explore your Pokémon!"
+                            Text="¡Usa la búsqueda por generaciones para explorar tus Pokémon!"
                             TextColor="{StaticResource ColorTextGray}" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -95,7 +96,6 @@
                                     Binding="{Binding Selected}"
                                     TargetType="{x:Type pancake:PancakeView}"
                                     Value="True">
-                                    <Setter Property="BackgroundColor" Value="{StaticResource ColorTypePsychic}" />
                                 </DataTrigger>
                             </pancake:PancakeView.Triggers>
                         </pancake:PancakeView>
