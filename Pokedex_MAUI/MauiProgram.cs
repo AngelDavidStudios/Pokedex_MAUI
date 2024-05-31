@@ -5,6 +5,7 @@ using Pokedex_MAUI.MVVM.Models;
 using Pokedex_MAUI.MVVM.ViewModels;
 using Pokedex_MAUI.MVVM.Views;
 using Pokedex_MAUI.Services;
+using The49.Maui.BottomSheet;
 
 namespace Pokedex_MAUI;
 
@@ -14,6 +15,7 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder
+            .UseBottomSheet()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
