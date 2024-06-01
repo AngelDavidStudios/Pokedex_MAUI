@@ -2,6 +2,7 @@ using System.Windows.Input;
 using Pokedex_MAUI.Helpers;
 using Pokedex_MAUI.Interfaces;
 using Pokedex_MAUI.MVVM.Models;
+using Pokedex_MAUI.MVVM.Views;
 using Pokedex_MAUI.ObservableCollections;
 using Pokedex_MAUI.Services;
 
@@ -456,7 +457,7 @@ public class VMHome : VMBase, IInitializeAsync
         {
             IsBusy = true;
 
-            // await Navigation.PushAsync(new DetailPage(pokemon));
+            await Navigation.PushAsync(new PokemonDetailView(pokemon));
         }
         catch (Exception ex)
         {

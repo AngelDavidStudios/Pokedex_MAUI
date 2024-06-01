@@ -126,7 +126,10 @@
                                 ItemSizingStrategy="MeasureAllItems"
                                 ItemsSource="{Binding Pokemons}"
                                 RemainingItemsThreshold="{Binding ItemTreshold}"
-                                RemainingItemsThresholdReachedCommand="{Binding LoadMorePokemonsCommand}">
+                                RemainingItemsThresholdReachedCommand="{Binding LoadMorePokemonsCommand}"
+                                SelectionMode="Single"
+                                SelectionChangedCommand="{Binding NavigateToDetailCommand}"
+                                SelectionChangedCommandParameter="{Binding Source={x:Reference collectionPokemons}, Path=SelectedItem}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>

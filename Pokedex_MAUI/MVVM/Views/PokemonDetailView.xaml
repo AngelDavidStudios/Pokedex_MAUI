@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pokedex_MAUI.MVVM.Views.PokemonDetailView"
+             xmlns:contentViews="clr-namespace:Pokedex_MAUI.MVVM.Views.ContentViews"
+             xmlns:converters="clr-namespace:Pokedex_MAUI.Converters"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             x:Name="Detail"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ConverterTypeToColorBackgroundType x:Key="converterTypeToColorBackgroundType" />
+
+            <ControlTemplate x:Key="TabItemTemplate">
+                <Grid RowSpacing="0">
+                    <Label
+                        HorizontalOptions="Center"
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="{TemplateBinding Text}"
+                        TextColor="{StaticResource ColorTextWhite}"
+                        VerticalOptions="Center">
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{TemplateBinding IsSelected}"
+                                TargetType="Label"
+                                Value="False">
+                                <Setter Property="Style" Value="{StaticResource LabelDescription}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="{Binding Pokemon.TypeDefault, Converter={StaticResource converterTypeToColorBackgroundType}}"
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  Pokemon Header  -->
+            <Grid Margin="0,38,0,0"
+                  RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="265" />
+                </Grid.RowDefinitions>
+
+                <Grid HorizontalOptions="FillAndExpand"
+                      VerticalOptions="CenterAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Pokemon Image  -->
+                    <Image
+                        x:Name="imagePokemon"
+                        Grid.RowSpan="2"
+                        Margin="30,70,0,0"
+                        HeightRequest="125"
+                        HorizontalOptions="Start"
+                        Source="{Binding Pokemon.ImageUrl}"
+                        VerticalOptions="Start"
+                        WidthRequest="125" />
+
+                    <!--  Numero Pokemon y Nombre  -->
+                    <Label
+                        x:Name="labelPokemonNumberName"
+                        Grid.Column="1"
+                        Margin="10,85,0,0"
+                        VerticalOptions="FillAndExpand"
+                        VerticalTextAlignment="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    Style="{StaticResource LabelPokemonNumber}"
+                                    Text="{Binding Pokemon.Id, StringFormat='#{0:000}'}"
+                                    TextColor="{StaticResource ColorTextNumber}" />
+                                <Span Text="{x:Static system:Environment.NewLine}" />
+                                <Span
+                                    Style="{StaticResource LabelAplicationTitle}"
+                                    Text="{Binding Pokemon.NameFirstCharUpper}"
+                                    TextColor="{StaticResource ColorTextWhite}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    
+                    <!--  Pokemon Badge Type  -->
+                    <contentViews:BadgeTypeContentView
+                        x:Name="contentBadgeType"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="10,0,0,0"
+                        BindingContext="{Binding Pokemon}"/>
+                </Grid>
+            </Grid>
+            
+            <!--  Pokemon Description  -->
+            <Frame Grid.Row="1"
+                   BackgroundColor="White"
+                   CornerRadius="20"
+                   Margin="20"
+                   Padding="20">
+                <StackLayout>
+                    <Label Text="Habilidades:"
+                           TextColor="Black"
+                           Style="{StaticResource LabelPokemonName}"/>
+                    <CollectionView ItemsSource="{Binding Pokemon.Abilities}"
+                                    Margin="0,0,0,20">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Ability.Name}"
+                                       TextColor="Black"
+                                       Style="{StaticResource LabelDescription}"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Label Text="Stats:"
+                           FontAttributes="Bold"
+                           TextColor="Black"
+                           Style="{StaticResource LabelPokemonName}"/>
+                    <CollectionView ItemsSource="{Binding Pokemon.Stats}"
+                                    Margin="0,0,0,15">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Stat.Name}"
+                                           TextColor="Black"
+                                           Style="{StaticResource LabelDescription}"/>
+                                    <Label Text="{Binding BaseStat}"
+                                           TextColor="Black"
+                                           Style="{StaticResource LabelDescription}"
+                                           Margin="15,0,0,0"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <StackLayout>
+                        <Button Text="Regresar"
+                                Command="{Binding NavigateToBackCommand}"
+                                Style="{StaticResource ButtonSecondary}"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
