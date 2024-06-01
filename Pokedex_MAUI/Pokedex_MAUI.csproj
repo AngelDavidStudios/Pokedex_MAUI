@@ -73,4 +73,13 @@
         <PackageReference Include="Xamarin.CommunityToolkit.Markup.MauiCompat" Version="1.3.2" />
     </ItemGroup>
 
+    <ItemGroup>
+        <MauiXaml Update="Controls\CustomBadgeType.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Controls\CustomSearchBar.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+    </ItemGroup>
+
 </Project>

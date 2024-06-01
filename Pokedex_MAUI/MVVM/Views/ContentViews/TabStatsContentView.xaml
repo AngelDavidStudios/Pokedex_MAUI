@@ -3,7 +3,8 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pokedex_MAUI.MVVM.Views.ContentViews.TabStatsContentView"
-             xmlns:converters="clr-namespace:Pokedex_MAUI.Converters">
+             xmlns:converters="clr-namespace:Pokedex_MAUI.Converters"
+             x:Name="statsView">
 
     <ContentView.Resources>
         <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
