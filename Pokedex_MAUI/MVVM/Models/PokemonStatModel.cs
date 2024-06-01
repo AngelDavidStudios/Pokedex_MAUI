@@ -1,5 +1,5 @@
-using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
+using Pokedex_MAUI.ObservableCollections;
 
 namespace Pokedex_MAUI.MVVM.Models;
 
