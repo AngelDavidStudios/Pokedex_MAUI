@@ -53,7 +53,6 @@ public class VMPokemonDetail : VMBase
 
             if (!InternetConnectivity())
             {
-                // TODO - Mensagem dados offline
                 return;
             }
 
