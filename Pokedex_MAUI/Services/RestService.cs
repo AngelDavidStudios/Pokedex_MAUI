@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Flurl;
 using Flurl.Http;
 using Pokedex_MAUI.Helpers;

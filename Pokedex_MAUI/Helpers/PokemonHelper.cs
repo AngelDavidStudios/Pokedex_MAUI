@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+using Pokedex_MAUI.ObservableCollections;
 using System.Globalization;
 using Pokedex_MAUI.Enums;
 using Pokedex_MAUI.Extensions;
@@ -7,7 +7,7 @@ namespace Pokedex_MAUI.Helpers;
 
 public static class PokemonHelper
 {
-    public static IEnumerable<PokemonModel>  GetMockPokemonList(int offset, int amount)
+    public static IEnumerable<PokemonModel> GetMockPokemonList(int offset, int amount)
     {
         List<PokemonModel> pokemonMockList = new List<PokemonModel>();
 
@@ -17,11 +17,10 @@ public static class PokemonHelper
             {
                 Name = "XXXXXXXXXX",
                 Id = i,
-                Types = new ObservableCollection<PokemonTypeModel>(GetMockPokemonTypes()),
+                Types = new ObservableRangeCollection<PokemonTypeModel>(GetMockPokemonTypes()),
                 IsBusy = true
             });
         }
-
         return pokemonMockList;
     }
     
@@ -32,7 +31,7 @@ public static class PokemonHelper
         {
             Name = "XXXXXXXXXX",
             Id = 1,
-            Types = new ObservableCollection<PokemonTypeModel>(GetMockPokemonTypes()),
+            Types = new ObservableRangeCollection<PokemonTypeModel>(GetMockPokemonTypes()),
             IsBusy = true
         };
     }
@@ -130,12 +129,12 @@ public static class PokemonHelper
     {
         return new FiltersModel
         {
-            Types = new ObservableCollection<TypeFilterModel>(GetFilterTypes()),
-            Weaknesses = new ObservableCollection<WeaknessFilterModel>(GetFilterWeaknesses()),
-            Heights = new ObservableCollection<HeightFilterModel>(GetFilterHeights()),
-            Weights = new ObservableCollection<WeightFilterModel>(GetFilterWeights()),
-            Orders = new ObservableCollection<SortFilterModel>(GetFilterSorts()),
-            Generations = new ObservableCollection<GenerationFilterModel>(GetFilterGenerations()),
+            Types = new ObservableRangeCollection<TypeFilterModel>(GetFilterTypes()),
+            Weaknesses = new ObservableRangeCollection<WeaknessFilterModel>(GetFilterWeaknesses()),
+            Heights = new ObservableRangeCollection<HeightFilterModel>(GetFilterHeights()),
+            Weights = new ObservableRangeCollection<WeightFilterModel>(GetFilterWeights()),
+            Orders = new ObservableRangeCollection<SortFilterModel>(GetFilterSorts()),
+            Generations = new ObservableRangeCollection<GenerationFilterModel>(GetFilterGenerations()),
             NumberRangeMin = 1,
             NumberRangeMax = 898
         };
@@ -188,7 +187,7 @@ public static class PokemonHelper
             new WeaknessFilterModel {Type = TypeEnum.Water }
         };
     }
-    
+
     public static IEnumerable<HeightFilterModel> GetFilterHeights()
     {
         return new List<HeightFilterModel>
@@ -198,7 +197,7 @@ public static class PokemonHelper
             new HeightFilterModel{ Height = HeightEnum.Tall }
         };
     }
-
+    
     public static IEnumerable<WeightFilterModel> GetFilterWeights()
     {
         return new List<WeightFilterModel>
@@ -208,7 +207,7 @@ public static class PokemonHelper
             new WeightFilterModel{ Weight = WeightEnum.Heavy }
         };
     }
-    
+
     public static IEnumerable<SortFilterModel> GetFilterSorts()
     {
         return new List<SortFilterModel>()
@@ -239,18 +238,15 @@ public static class PokemonHelper
     {
         List<ResourceItemModel> resourceItems = new List<ResourceItemModel>();
 
-        if (generation.Species != null)
+        generation.Species?.ToList().ForEach(specie =>
         {
-            foreach (var specie in generation.Species)
-            {
-                resourceItems.Add(
-                    new ResourceItemModel 
-                    { 
-                        Name = specie.Name, 
-                        Url = $"{Constants.BASE_URL}/{Constants.ENDPOINT_POKEMON}/{ExtractIdFromUrl(specie.Url)}" 
-                    });
-            }
-        }
+            resourceItems.Add(
+                new ResourceItemModel
+                {
+                    Name = specie.Name,
+                    Url = $"{Constants.BASE_URL}/{Constants.ENDPOINT_POKEMON}/{ExtractIdFromUrl(specie.Url)}"
+                });
+        });
 
         return resourceItems;
     }
@@ -297,12 +293,12 @@ public static class PokemonHelper
 
         return allTypeRelations;
     }
-    
+
     public static IEnumerable<PokemonTypeDefenseModel> GetPokemonWeaknesses(IEnumerable<PokemonTypeDefenseModel> typeDefenses)
     {
         return typeDefenses.Where(w => w.Effect == EffectEnum.SuperEffective).ToList();
     }
-
+    
     public static double EffectToMultiplier(EffectEnum effect)
     {
         switch (effect)
@@ -435,7 +431,7 @@ public static class PokemonHelper
 
         return growthRateDescription.Trim();
     }
-    
+
     public static LocationModel GetLocation(int entryNumber, IEnumerable<VersionModel> versions, PokedexModel pokedex)
     {
         var description = string.Join("/", versions.Select(s => s.NameFirstCharUpper));
@@ -451,7 +447,7 @@ public static class PokemonHelper
             Description = $"({description})"
         };
     }
-
+    
     public static double CalculateCatchRateProbability(IEnumerable<PokemonStatModel> stats, int captureRate)
     {
         int hp = stats.Where(w => w.Stat.Name.ToLower() == "hp").Select(s => s.BaseStat).FirstOrDefault();
@@ -463,12 +459,12 @@ public static class PokemonHelper
     {
         return hatchCounter * Constants.EGG_CYCLE_STEPS;
     }
-    
+
     public static int CalculateMinEggSteps(int maxEggSteps)
     {
         return maxEggSteps - (Constants.EGG_CYCLE_STEPS - 1);
     }
-
+    
     public static IEnumerable<PokemonStatModel> GetFullStats(IEnumerable<PokemonStatModel> stats)
     {
         foreach (var item in stats)
@@ -495,7 +491,7 @@ public static class PokemonHelper
 
         return stats;
     }
-    
+
     public static int GetTotalStats(IEnumerable<PokemonStatModel> stats)
     {
         return stats.Sum(s => s.BaseStat);
@@ -505,7 +501,7 @@ public static class PokemonHelper
     {
         return decimetres / Constants.METERS_CONVERTER_VALUE;
     }
-
+    
     public static string MetersToInches(double meters)
     {
         var feet = UnitConverters.MetersToInternationalFeet(meters);
