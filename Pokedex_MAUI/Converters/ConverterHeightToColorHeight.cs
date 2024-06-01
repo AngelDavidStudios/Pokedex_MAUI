@@ -37,6 +37,6 @@ public class ConverterHeightToColorHeight: IValueConverter
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return null;
+        throw new NotImplementedException();
     }
 }
