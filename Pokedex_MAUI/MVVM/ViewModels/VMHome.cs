@@ -189,7 +189,6 @@ public class VMHome : VMBase, IInitializeAsync
 
             if (!InternetConnectivity())
             {
-                // TODO - Mensagem dados offline
                 return;
             }
 
@@ -236,7 +235,6 @@ public class VMHome : VMBase, IInitializeAsync
 
             if (!InternetConnectivity())
             {
-                // TODO - Mensagem dados offline
                 return;
             }
 
