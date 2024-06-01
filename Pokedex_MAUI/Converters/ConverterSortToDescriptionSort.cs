@@ -23,9 +23,9 @@ public class ConverterSortToDescriptionSort: IValueConverter
         switch (type)
         {
             case SortEnum.Ascending:
-                return "Smallest number first";
+                return "El número más pequeño primero";
             case SortEnum.Descending:
-                return "Highest number first";
+                return "El número más alto primero";
             case SortEnum.AlphabeticalAscending:
                 return "A-Z";
             case SortEnum.AlphabeticalDescending:

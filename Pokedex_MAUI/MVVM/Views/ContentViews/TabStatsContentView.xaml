@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pokedex_MAUI.MVVM.Views.ContentViews.TabStatsContentView"
+             xmlns:converters="clr-namespace:Pokedex_MAUI.Converters">
+
+    <ContentView.Resources>
+        <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
+        <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <StackLayout>
+            <Grid Padding="40,30,40,40" RowSpacing="25">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="250" />
+                </Grid.RowDefinitions>
+
+                <!--  Seccion de los Stats  -->
+                <StackLayout Grid.Row="1" BindableLayout.ItemsSource="{Binding Pokemon.Stats}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnSpacing="10" RowSpacing="15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.4*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="3.9*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
+                <Grid
+                    Grid.Row="2"
+                    Margin="0,-20,0,0"
+                    ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.4*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3.9*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+
+                <CollectionView
+                    Grid.Row="6"
+                    HorizontalOptions="Center"
+                    ItemsSource="{Binding Pokemon.TypeDefenses}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="15"
+                            Orientation="Horizontal"
+                            Span="3"
+                            VerticalItemSpacing="0" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowSpacing="5" VerticalOptions="Start">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Grid.Row="1"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource LabelDescription}"
+                                    Text="{Binding Multiplier}"
+                                    TextColor="{StaticResource ColorTextGray}"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+
+</ContentView>

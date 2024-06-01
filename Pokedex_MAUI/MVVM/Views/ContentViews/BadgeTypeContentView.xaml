@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pokedex_MAUI.MVVM.Views.ContentViews.BadgeTypeContentView"
+             xmlns:controls="clr-namespace:Pokedex_MAUI.Controls"
+             xmlns:converters="clr-namespace:Pokedex_MAUI.Converters">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
+            <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Types}"
+                               HorizontalOptions="Start"
+                               Spacing="5"
+                               VerticalOptions="Start">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <controls:CustomBadgeType
+                        BadgeBackgroundColor="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToColorType}}"
+                        IconSource="{Binding Type.NameFirstCharUpper, Converter={StaticResource converterTypeToImageType}}"
+                        Text="{Binding Type.NameFirstCharUpper}"/>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </HorizontalStackLayout>
+    </ContentView.Content>
+</ContentView>

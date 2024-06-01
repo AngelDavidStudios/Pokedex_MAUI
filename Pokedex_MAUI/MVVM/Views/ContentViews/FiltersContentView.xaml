@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pokedex_MAUI.MVVM.Views.ContentViews.FiltersContentView"
+             xmlns:converters="clr-namespace:Pokedex_MAUI.Converters"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             x:Name="filters">
+    
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:ConverterTypeToColorType x:Key="converterTypeToColorType" />
+            <converters:ConverterTypeToImageType x:Key="converterTypeToImageType" />
+            <converters:ConverterHeightToColorHeight x:Key="converterHeightToColorHeight" />
+            <converters:ConverterHeightToImageHeight x:Key="converterHeightToImageHeight" />
+            <converters:ConverterWeightToColorWeight x:Key="converterWeightToColorWeight" />
+            <converters:ConverterWeightToImageWeight x:Key="converterWeightToImageWeight" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <Grid Padding="0,20,0,50"
+              RowSpacing="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  Titulo - Subtitulo  -->
+            <Label
+                Margin="40,0"
+                HorizontalOptions="Start"
+                HorizontalTextAlignment="Start"
+                VerticalOptions="Start">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            Style="{StaticResource LabelPokemonName}"
+                            Text="Filtros"
+                            TextColor="{StaticResource ColorTextBlack}" />
+                        <Span Text="{x:Static system:Environment.NewLine}" />
+                        <Span Text="{x:Static system:Environment.NewLine}" />
+                        <Span
+                            Style="{StaticResource LabelDescription}"
+                            Text="¡Usa la búsqueda avanzada para explorar Pokémon por tipo, debilidad, altura y más!"
+                            TextColor="{StaticResource ColorTextGray}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <ScrollView Grid.Row="1">
+                <Grid Padding="40,0" RowSpacing="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--  Filtro por Tipo  -->
+                    <Label
+                        Margin="0,15,0,0"
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Types"
+                        TextColor="{StaticResource ColorTextBlack}" />
+                    <CollectionView
+                        Grid.Row="1"
+                        ItemsSource="{Binding Filters.Types}"
+                        VerticalOptions="Start">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Padding="3"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!--  Filtro por Debilidad  -->
+                    <Label
+                        Grid.Row="2"
+                        Margin="0,10,0,0"
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Weaknesses"
+                        TextColor="{StaticResource ColorTextBlack}" />
+                    <CollectionView
+                        Grid.Row="3"
+                        ItemsSource="{Binding Filters.Weaknesses}"
+                        VerticalOptions="Start">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Padding="3"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!--  Filtro por Altura  -->
+                    <Label
+                        Grid.Row="4"
+                        Margin="0,10,0,0"
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Heights"
+                        TextColor="{StaticResource ColorTextBlack}" />
+                    <CollectionView
+                        Grid.Row="5"
+                        ItemsSource="{Binding Filters.Heights}"
+                        VerticalOptions="Start">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Padding="3"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!--  Filtro por Peso  -->
+                    <Label
+                        Grid.Row="6"
+                        Margin="0,10,0,0"
+                        Style="{StaticResource LabelFilterTitle}"
+                        Text="Weights"
+                        TextColor="{StaticResource ColorTextBlack}" />
+                    <CollectionView
+                        Grid.Row="7"
+                        ItemsSource="{Binding Filters.Weights}"
+                        VerticalOptions="Start">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Padding="3"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!--  Footer  -->
+                    <FlexLayout
+                        Grid.Row="10"
+                        Margin="0,20,0,0"
+                        Padding="2,5"
+                        Direction="Row"
+                        JustifyContent="SpaceBetween">
+                        <!--  Boton Reset  -->
+                        <Button
+                            Command="{Binding ResetFiltersCommand}"
+                            CornerRadius="10"
+                            HeightRequest="60"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource ButtonSecondary}"
+                            Text="Reset"
+                            VerticalOptions="Center"
+                            WidthRequest="160" />
+
+                        <!--  Boton Confirmar  -->
+                        <Button
+                            Command="{Binding ApplyFiltersCommand}"
+                            CornerRadius="10"
+                            HeightRequest="60"
+                            HorizontalOptions="End"
+                            Style="{StaticResource ButtonPrimary}"
+                            Text="Apply"
+                            VerticalOptions="Center"
+                            WidthRequest="160">
+                            <Button.Shadow>
+                                <Shadow Opacity="1"
+                                        Radius="10"
+                                        Brush="{StaticResource ColorTypePsychic}" />
+                            </Button.Shadow>
+                        </Button>
+                    </FlexLayout>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
