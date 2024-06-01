@@ -1,31 +1,22 @@
 using System.Text.Json;
+using Flurl;
+using Flurl.Http;
 using Pokedex_MAUI.Helpers;
 using Pokedex_MAUI.Interfaces;
 
 namespace Pokedex_MAUI.Services;
 
-public class RestService: IRestService
+public class RestService : IRestService
 {
-    private readonly HttpClient _httpClient;
-
-    public RestService()
-    {
-        _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
-    }
-    
     public async Task<T> GetResourceAsync<T>(string url)
     {
-        var response = await _httpClient.GetAsync(url);
+        var response = await url
+            .WithTimeout(TimeSpan.FromSeconds(30))
+            .GetJsonAsync<T>();
 
-        if (response.IsSuccessStatusCode)
-        {
-            var content = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<T>(content);
-        }
-
-        return default;
+        return response;
     }
-    
+
     public async Task<T> GetResourceByNameAsync<T>(string apiEndpoint, string name)
     {
         string sanitizedName = name
@@ -33,7 +24,11 @@ public class RestService: IRestService
             .Replace("'", "")
             .Replace(".", "");
 
-        var url = $"{Constants.BASE_URL}/{apiEndpoint}/{sanitizedName}";
-        return await GetResourceAsync<T>(url);
+        var response = await Constants.BASE_URL
+            .AppendPathSegments(apiEndpoint, sanitizedName)
+            .WithTimeout(TimeSpan.FromSeconds(30))
+            .GetJsonAsync<T>();
+
+        return response;
     }
 }
