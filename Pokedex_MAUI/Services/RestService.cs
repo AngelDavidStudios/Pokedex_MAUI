@@ -1,33 +1,34 @@
-using Flurl;
-using Flurl.Http;
+using Newtonsoft.Json;
 using Pokedex_MAUI.Helpers;
 using Pokedex_MAUI.Interfaces;
 
-namespace Pokedex_MAUI.Services;
-
-public class RestService : IRestService
+namespace Pokedex_MAUI.Services
 {
-    public async Task<T> GetResourceAsync<T>(string url)
+    public class RestService : IRestService
     {
-        var response = await url
-            .WithTimeout(TimeSpan.FromSeconds(30))
-            .GetJsonAsync<T>();
+        private readonly HttpClient _httpClient;
 
-        return response;
-    }
+        public RestService()
+        {
+            _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
+        }
 
-    public async Task<T> GetResourceByNameAsync<T>(string apiEndpoint, string name)
-    {
-        string sanitizedName = name
-            .Replace(" ", "-")
-            .Replace("'", "")
-            .Replace(".", "");
+        public async Task<T> GetResourceAsync<T>(string url)
+        {
+            var response = await _httpClient.GetStringAsync(url);
+            return JsonConvert.DeserializeObject<T>(response);
+        }
 
-        var response = await Constants.BASE_URL
-            .AppendPathSegments(apiEndpoint, sanitizedName)
-            .WithTimeout(TimeSpan.FromSeconds(30))
-            .GetJsonAsync<T>();
+        public async Task<T> GetResourceByNameAsync<T>(string apiEndpoint, string name)
+        {
+            string sanitizedName = name
+                .Replace(" ", "-")
+                .Replace("'", "")
+                .Replace(".", "");
 
-        return response;
+            var url = $"{Constants.BASE_URL}/{apiEndpoint}/{sanitizedName}";
+            var response = await _httpClient.GetStringAsync(url);
+            return JsonConvert.DeserializeObject<T>(response);
+        }
     }
 }
