@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Maui;
-using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Compatibility.Hosting;
+using Pokedex_MAUI.Handlers;
 using The49.Maui.BottomSheet;
 
 namespace Pokedex_MAUI;
@@ -29,11 +29,8 @@ public static class MauiProgram
                 fonts.AddFont("sf-pro-display-medium.ttf", "FontMedium");
                 fonts.AddFont("sf-pro-display-bold.ttf", "FontBold");
             });
-
-#if DEBUG
-        builder.Logging.AddDebug();
-#endif
-
+        
+        EntryBorderlessHandler.Configure();
         return builder.Build();
     }
 }
