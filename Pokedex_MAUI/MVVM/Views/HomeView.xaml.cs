@@ -17,6 +17,7 @@ public partial class HomeView : ContentPage
         BindingContext = new VMHome(Navigation, new RestService());
         
         labelTitle.TranslationX = -350;
+        borderAccount.TranslationX = -300;
         borderFilterGeneration.TranslationY = -300;
         borderFilterSort.TranslationY = -300;
         borderFilters.TranslationY = -300;
@@ -36,6 +37,12 @@ public partial class HomeView : ContentPage
             customSearchBar.TranslateTo(0, -300, DURATION_ANIMATION, Easing.Linear),
             customSearchBar.TranslateTo(0, -150, DURATION_ANIMATION, Easing.Linear),
             customSearchBar.TranslateTo(0, 0, DURATION_ANIMATION, Easing.Linear)
+        );
+        
+        await Task.WhenAll(
+            borderAccount.TranslateTo(0, -300, DURATION_ANIMATION, Easing.BounceOut),
+            borderAccount.TranslateTo(0, -150, DURATION_ANIMATION, Easing.BounceOut),
+            borderAccount.TranslateTo(0, 0, DURATION_ANIMATION, Easing.BounceOut)
         );
 
         await Task.WhenAll(

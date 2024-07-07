@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pokedex_MAUI.MVVM.Views.ContentViews.AccountContentView">
+    <ContentView.Content>
+        <Grid HorizontalOptions="FillAndExpand"
+              RowDefinitions="Auto,Auto,Auto,*"
+              Margin="50,0,50,0">
+            <VerticalStackLayout>
+                <Frame CornerRadius="50"
+                       WidthRequest="120"
+                       HeightRequest="120"
+                       Margin="0,20,0,0"
+                       Padding="0"
+                       BorderColor="{StaticResource ColorTypeDragon}">
+                    <Image Source="type_dragon.png"
+                           WidthRequest="80"
+                           HeightRequest="80"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+                </Frame>
+                <Label Text="Bienvenido al club  de Entrenadores Pokemon"
+                       TextColor="{StaticResource ColorTypeFighting}"
+                       FontAttributes="Bold"
+                       FontSize="18"
+                       HorizontalOptions="Center"
+                       Margin="0,30,0,0" />
+
+                <Grid RowDefinitions="*, *, *"
+                      Margin="0,60,0,0"
+                      Padding="10"
+                      RowSpacing="10"
+                      HorizontalOptions="Center">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Nombre del Usuario:"
+                               FontSize="20"></Label>
+                        <Label x:Name="lblUserName"
+                               FontAttributes="Bold"
+                               FontSize="18"
+                               Margin="10,0,0,0"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="1"
+                                 Orientation="Horizontal">
+                           <Label Text="Email Registrado:"
+                                  FontSize="20"></Label>
+                           <Label x:Name="lblUserEmail"
+                                  FontAttributes="Bold"
+                                  FontSize="18"
+                                  Margin="10,0,0,0"/>
+                    </StackLayout>
+                </Grid>
+                
+                <Button Command="{Binding SignOutCommand}"
+                        FontAttributes="Bold"
+                        Text="Cerrar Sesion"
+                        CornerRadius="10"
+                        FontSize="20"
+                        VerticalOptions="Center"
+                        Style="{StaticResource ButtonPrimary}"
+                        Margin="30,0,30,0">
+                    <Button.Shadow>
+                        <Shadow Opacity="1"
+                                Radius="10"
+                                Brush="{StaticResource ColorTypePsychic}" />
+                    </Button.Shadow>
+                </Button>
+            </VerticalStackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

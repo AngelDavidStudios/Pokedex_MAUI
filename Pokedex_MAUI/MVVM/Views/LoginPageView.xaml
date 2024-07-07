@@ -2,8 +2,135 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Pokedex_MAUI.MVVM.Views.LoginPageView">
+             x:Class="Pokedex_MAUI.MVVM.Views.LoginPageView"
+             Title=""
+             Shell.NavBarIsVisible="False"
+             xmlns:viewmodels="clr-namespace:Pokedex_MAUI.MVVM.ViewModels"
+             xmlns:compatibility="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             x:DataType="viewmodels:VMLoginPage">
+
     <ContentPage.Content>
-        
+            <Grid HorizontalOptions="FillAndExpand"
+                  RowDefinitions="Auto,Auto,Auto,*">
+                
+                <!--  Pokeball Gradient  -->
+                <Path
+                    Grid.RowSpan="2"
+                    Margin="0,-500,0,0"
+                    Aspect="Uniform"
+                    Data="M37.5 0C56.798 0 72.7167 14.361 75 32.9032H56.6974C54.6135 24.298 46.8091 17.9032 37.5 17.9032C28.1909 17.9032 20.3865 24.298 18.3026 32.9032H0C2.28333 14.361 18.202 0 37.5 0Z M56.6974 42.0968H75C72.7167 60.639 56.798 75 37.5 75C18.202 75 2.28333 60.639 0 42.0968H18.3026C20.3865 50.702 28.1909 57.0968 37.5 57.0968C46.8091 57.0968 54.6135 50.702 56.6974 42.0968Z M37.5 49.8387C44.3655 49.8387 49.9312 44.3145 49.9312 37.5C49.9312 30.6855 44.3655 25.1613 37.5 25.1613C30.6345 25.1613 25.0688 30.6855 25.0688 37.5C25.0688 44.3145 30.6345 49.8387 37.5 49.8387Z"
+                    HorizontalOptions="FillAndExpand">
+                    <Path.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Offset="0.6" Color="#F5F5F5" />
+                            <GradientStop Offset="0.94" Color="#FFFFFF" />
+                        </LinearGradientBrush>
+                    </Path.Fill>
+                </Path>
+
+                <VerticalStackLayout>
+                    <Frame CornerRadius="50"
+                           WidthRequest="120"
+                           HeightRequest="120"
+                           Margin="0,20,0,0"
+                           Padding="0"
+                           BorderColor="{StaticResource ColorTypeDragon}">
+                        <Image Source="type_dragon.png"
+                               WidthRequest="80"
+                               HeightRequest="80"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                    </Frame>
+                    <Label Text="Sign In to continue"
+                           TextColor="{StaticResource ColorTypeFighting}"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           HorizontalOptions="Center"
+                           Margin="0,30,0,0" />
+
+                    <Grid RowDefinitions="*, *, *"
+                          Margin="0,60,0,0"
+                          Padding="10"
+                          RowSpacing="10"
+                          HorizontalOptions="Center">
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="user.png"
+                                   WidthRequest="30"
+                                   HeightRequest="30" />
+                            <Entry Text="{Binding UserName}"
+                                   HeightRequest="50"
+                                   WidthRequest="300"
+                                   Margin="10,0,0,0"
+                                   Placeholder="Email Address"
+                                   FontAttributes="Bold" />
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1"
+                                     Orientation="Horizontal">
+                            <Image Source="lock.png"
+                                   WidthRequest="30"
+                                   HeightRequest="30" />
+                            <Entry Text="{Binding Password}"
+                                   HeightRequest="50"
+                                   WidthRequest="300"
+                                   Margin="10,0,0,0"
+                                   Placeholder="Password"
+                                   FontAttributes="Bold"
+                                   IsPassword="True" />
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="2"
+                                     Margin="5,0,0,0"
+                                     Orientation="Horizontal"
+                                     HorizontalOptions="Center">
+                            <CheckBox IsChecked="False" />
+                            <Label Text="Remember Me"
+                                   FontAttributes="Bold"
+                                   Margin="-10,13,0,0" />
+                            <Button Text="Forgot Password"
+                                    BackgroundColor="Transparent"
+                                    TextColor="IndianRed"
+                                    FontAttributes="Bold"
+                                    BorderWidth="0"
+                                    Margin="50,0,0,0" />
+                        </StackLayout>
+                    </Grid>
+
+                    <Button Command="{Binding LoginCommand}"
+                            FontAttributes="Bold"
+                            Text="Login"
+                            CornerRadius="10"
+                            FontSize="20"
+                            VerticalOptions="Center"
+                            Style="{StaticResource ButtonPrimary}"
+                            Margin="30,0,30,0">
+                        <Button.Shadow>
+                            <Shadow Opacity="1"
+                                    Radius="10"
+                                    Brush="{StaticResource ColorTypePsychic}" />
+                        </Button.Shadow>
+                    </Button>
+                    
+                    <StackLayout Margin="0,35,0,0"
+                                 Orientation="Horizontal"
+                                 HorizontalOptions="Center">
+                        <Label Text="Nuevo Usuario?"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="Blue"
+                               FontSize="Small" />
+                        <Button 
+                                Command="{Binding ShowSignUpModalCommand}"
+                                Text="Sign Up"
+                                FontSize="Small"
+                                TextColor="Green"
+                                BorderWidth="0"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                BackgroundColor="Transparent"/>
+                    </StackLayout>
+                </VerticalStackLayout>
+            </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -12,7 +12,8 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
-        MainPage = new NavigationPage(new HomeView());
+        MainPage = new AppShell();
+        Shell.SetNavBarIsVisible(MainPage, false);
     }
     
     protected override void OnStart()

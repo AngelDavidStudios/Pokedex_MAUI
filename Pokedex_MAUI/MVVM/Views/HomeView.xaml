@@ -9,7 +9,8 @@
              xmlns:system="clr-namespace:System;assembly=netstandard"
              xmlns:compatibility="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              x:Name="Home"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             Shell.TabBarIsVisible="False">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -60,6 +61,12 @@
                     Padding="43,45,15,30"
                     HorizontalOptions="EndAndExpand"
                     Spacing="5">
+                    <Border x:Name="borderAccount" Style="{StaticResource BorderMenuIcon}">
+                        <Image Source="logo" Style="{StaticResource ImageFilter}" />
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenModalAccountCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
                     <Border x:Name="borderFilterGeneration" Style="{StaticResource BorderMenuIcon}">
                         <Image Source="icon_generation" Style="{StaticResource ImageFilter}" />
                         <Border.GestureRecognizers>

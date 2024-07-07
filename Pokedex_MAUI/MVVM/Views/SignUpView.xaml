@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pokedex_MAUI.MVVM.Views.SignUpView">
+
+    <!-- Main layout-->
+    <Grid ColumnDefinitions="*,*"
+          RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*,*" 
+          RowSpacing="10" 
+          Padding="30">
+        <!-- Title & description-->
+        <Label Grid.Row="0" 
+               Grid.Column="0" 
+               Grid.ColumnSpan="2" 
+               Text="Crear cuenta" 
+               FontSize="24" />
+        <Label Grid.Row="1" 
+               Grid.Column="0" 
+               Grid.ColumnSpan="2" 
+               Text="Bienvenido a la Comunidad de los Entrenadores pokemon"
+               Margin="0,0,0,15"
+               TextColor="#9799a8" />
+        <!-- Personal information form-->
+        <StackLayout Grid.Row="2" 
+              Grid.Column="0" 
+              Grid.ColumnSpan="2" 
+              Margin="-20,0,0,0">
+               <Entry x:Name="FullNameEntry" 
+                      Placeholder="Full Name" 
+                      Text="{Binding FullName}"
+                      Margin="0,0,0,10"/>
+               <Entry x:Name="EmailEntry" 
+                      Placeholder="Email" 
+                      Text="{Binding Email}"
+                      Margin="0,0,0,10"/>
+               <Entry x:Name="PasswordEntry" 
+                      Placeholder="Password" 
+                      IsPassword="True" 
+                      Text="{Binding Password}"
+                      Margin="0,0,0,10"/>
+               <Entry x:Name="ConfirmPasswordEntry" 
+                      Placeholder="Confirm Password" 
+                      IsPassword="True"
+                      Text="{Binding ConfirmPassword}"
+                      Margin="0,0,0,15"/>
+        </StackLayout>
+        
+        <!-- Sign Up Button-->
+        <Button Grid.Row="4" 
+                Grid.Column="0" 
+                Text="Registrarme"
+                FontSize="16"
+                HeightRequest="50"
+                Margin="10,0,10,0"
+                Command="{Binding RegisterCommand}" 
+                Style="{StaticResource ButtonPrimary}"
+                CornerRadius="10">
+               <Button.Shadow>
+                      <Shadow Opacity="1"
+                              Radius="10"
+                              Brush="{StaticResource ColorTypePsychic}" />
+               </Button.Shadow>
+        </Button>
+        
+        <!-- CloseButton-->
+        <Button Grid.Row="4" 
+                Grid.Column="1" 
+                Text="Regresar"
+                FontSize="16"
+                HeightRequest="50"
+                Margin="10,0,10,0"
+                Command="{Binding GoToLoginCommand}" 
+                Style="{StaticResource ButtonSecondary}"
+                CornerRadius="10"/>
+    </Grid>
+</ContentPage>

@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using Pokedex_MAUI.Helpers;
 using Pokedex_MAUI.Interfaces;
 using Pokedex_MAUI.MVVM.Models;
@@ -103,6 +104,7 @@ public class VMHome : VMBase, IInitializeAsync
     public ICommand OpenModalFiltersCommand { get; }
     public ICommand OpenModalSortCommand { get; }
     public ICommand OpenModalGenerationCommand { get; }
+    public ICommand OpenModalAccountCommand { get; }
     public ICommand CloseModalCommand { get; }
     public ICommand NavigateToDetailCommand { get; }
     public ICommand SelectGenerationCommand { get; }
@@ -134,6 +136,7 @@ public class VMHome : VMBase, IInitializeAsync
         OpenModalGenerationCommand = new Command(async () => await ExecuteOpenModalGenerationCommand());
         OpenModalSortCommand = new Command(async () => await ExecuteOpenModalSortCommand());
         OpenModalFiltersCommand = new Command(async () => await ExecuteOpenModalFiltersCommand());
+        OpenModalAccountCommand = new Command(async()=> await OpenAccount());
         CloseModalCommand = new Command(async () => await ExecuteCloseModalCommand());
         SelectGenerationCommand =
             new Command<GenerationFilterModel>(async (generation) => await ExecuteSelectGenerationCommand(generation));
@@ -548,6 +551,11 @@ public class VMHome : VMBase, IInitializeAsync
         {
             IsBusy = false;
         }
+    }
+    
+    private async Task OpenAccount()
+    {
+        await Navigation.PushModalAsync(new AccountView());
     }
 
     private async Task ExecuteCloseModalCommand()

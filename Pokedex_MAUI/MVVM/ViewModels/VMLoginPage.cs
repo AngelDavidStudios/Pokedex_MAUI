@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Models.Login;
 using Newtonsoft.Json;
+using Pokedex_MAUI.MVVM.Views;
 using Pokedex_MAUI.Services;
 
 namespace Pokedex_MAUI.MVVM.ViewModels;

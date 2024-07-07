@@ -56,4 +56,10 @@ public partial class VMSignUp: ObservableObject
             await Application.Current.MainPage.DisplayAlert("Error", "Error al registrar usuario.", "Ok");
         }
     }
+    
+    [RelayCommand]
+    public async Task GoToLogin()
+    {
+        await Application.Current.MainPage.Navigation.PopModalAsync();
+    }
 }

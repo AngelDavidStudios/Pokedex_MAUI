@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Pokedex_MAUI.MVVM.ViewModels;
 
 namespace Pokedex_MAUI.MVVM.Views;
 
@@ -11,5 +7,6 @@ public partial class LoginPageView : ContentPage
     public LoginPageView()
     {
         InitializeComponent();
+        BindingContext = new VMLoginPage();
     }
 }
