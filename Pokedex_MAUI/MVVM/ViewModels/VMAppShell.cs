@@ -14,4 +14,10 @@ public partial class VMAppShell: ObservableObject
         }
         await Shell.Current.GoToAsync("//LoginPageView");
     }
+    
+    [RelayCommand]
+    async void CloseModal()
+    {
+        await Shell.Current.Navigation.PopModalAsync();
+    }
 }

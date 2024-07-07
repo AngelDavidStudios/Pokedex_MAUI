@@ -65,6 +65,16 @@
                                 Brush="{StaticResource ColorTypePsychic}" />
                     </Button.Shadow>
                 </Button>
+                
+                <Button Command="{Binding CloseModalCommand}"
+                        FontAttributes="Bold"
+                        Text="Regresar"
+                        CornerRadius="10"
+                        FontSize="20"
+                        VerticalOptions="Center"
+                        Style="{StaticResource ButtonSecondary}"
+                        Margin="30,20,30,0">
+                </Button>
             </VerticalStackLayout>
         </Grid>
     </ContentPage.Content>
